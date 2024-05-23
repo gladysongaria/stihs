@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\Home\ItemController;
 use App\Http\Controllers\InventoryController;
@@ -109,9 +110,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/individual/{id}/monitoring', 'print')->name('individual.print');
     });
 
-    //FormController
-    Route::controller(FormController::class)->prefix('form')->group(function () {
-        Route::resource('form', FormController::class);
+    //RequestController
+     Route::controller(RequestController::class)->prefix('request')->group(function () {
+        Route::resource('request', RequestController::class);
+        Route::get('/approved', 'approved')->name('approved.index');
     });
 
     //ScanController

@@ -70,7 +70,7 @@
 </head>
 <body>
     {{-- Create Modal --}}
-    <div class="modal fade" id="form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    <div class="modal fade" id="request" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
         aria-labelledby="createUserLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="{{ route('form.store') }}" method="POST">
+                    <form action="{{ route('request.store') }}" method="POST">
                         @csrf
 
                         <table id="labelTable" class="table" style="border: 1px solid black;">

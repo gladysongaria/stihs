@@ -104,10 +104,10 @@
                             </div>
                         </div>
 
-                        <h4 class="card-title mb-4">Latest Transactions</h4>
+                        <h4 class="mb-4 card-title">Latest Transactions</h4>
 
                         <div class="table-responsive">
-                            <table class="table table-centered mb-0 align-middle table-hover table-nowrap">
+                            <table class="table mb-0 align-middle table-centered table-hover table-nowrap">
                                 <thead class="table-light">
                                     <tr>
                                         <th>Name</th>
@@ -156,3 +156,4 @@
 
     </div>
 @endsection
+

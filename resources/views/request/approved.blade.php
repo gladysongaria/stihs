@@ -48,15 +48,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">SUPPLY REQUESTS</h4>
-                    <button data-bs-toggle="modal" data-bs-target="#form"
-                    class="btn btn-sm btn-primary waves-light">Request Supply</button>
+                    <h4 class="mb-sm-0">REQUESTS</h4>
+
                 </div>
             </div>
         </div>
         <!-- end page title -->
-
-        @include('form.create')
 
         <div class="row">
             <div class="col-xl-6">
@@ -68,22 +65,18 @@
                                     <th>User</th>
                                     <th>Usertype</th>
                                     <th>Email</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($users as $user)
+                                @foreach ($user->requests as $request)
                                 <tr>
                                     <td>{{ $user->first_name }} {{ $user->middle_initial}}. {{ $user->last_name }}</td>
                                     <td>{{ $user->usertype }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>
-                                            <button data-bs-toggle="modal" data-bs-target="#formShow{{$user->id}}"
-                                                class="btn btn-sm btn-primary waves-light">View</button>
-
-                                            @include('form.show')
-                                    </td>
                                 </tr>
+                                @endforeach
+
                                 @endforeach
                             </tbody>
                         </table>
