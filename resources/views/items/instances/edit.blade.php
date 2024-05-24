@@ -33,6 +33,7 @@
                                         <option value="Good Condition">Good
                                             Condition</option>
                                         <option value="Damaged">Damaged</option>
+                                        <option value="For Repair">For Repair</option>
                                     </select>
                                 </div>
                             </div>

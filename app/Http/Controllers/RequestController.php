@@ -71,11 +71,35 @@ class RequestController extends Controller
     {
         $pendingRequest = new SupplyRequest();
         $pendingRequest->user_id = auth()->id();
-        $pendingRequest->pending_request_id = $id;
+        $pendingRequest->item_name = PendingRequest::find($id)->item_name;
+        $pendingRequest->item_specification = PendingRequest::find($id)->item_specification;
+        $pendingRequest->quantity = PendingRequest::find($id)->quantity;
+        $pendingRequest->purpose = PendingRequest::find($id)->purpose;
         $pendingRequest->status = 'Approved';
-        $pendingRequest->date = now();
+        $pendingRequest->date_approved = now();
 
         $pendingRequest->save();
+
+        PendingRequest::find($id)->delete();
+
+        return redirect()->back()->with('success', 'Request approved successfully.');
+    }
+
+    public function decline(Request $request, $id)
+    {
+        $decline = new SupplyRequest();
+        $decline->user_id = auth()->id();
+        $decline->item_name = PendingRequest::find($id)->item_name;
+        $decline->item_specification = PendingRequest::find($id)->item_specification;
+        $decline->quantity = PendingRequest::find($id)->quantity;
+        $decline->purpose = PendingRequest::find($id)->purpose;
+        $decline->status = 'Declined';
+        $decline->reason = $request->input('reason');
+        $decline->date_approved = now();
+
+        $decline->save();
+
+        PendingRequest::find($id)->delete();
 
         return redirect()->back()->with('success', 'Request approved successfully.');
     }

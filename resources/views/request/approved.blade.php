@@ -65,6 +65,10 @@
                                     <th>User</th>
                                     <th>Usertype</th>
                                     <th>Email</th>
+                                    <th>Item</th>
+                                    <th>Specification</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,13 +78,23 @@
                                     <td>{{ $user->first_name }} {{ $user->middle_initial}}. {{ $user->last_name }}</td>
                                     <td>{{ $user->usertype }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ $request->item_name }}</td>
+                                    <td>{{ $request->item_specification }}</td>
+                                    <td>{{ $request->quantity }}</td>
+                                    <td>
+                                        @if($request->status == 'Pending')
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                        @elseif($request->status == 'Approved')
+                                        <span class="badge bg-success">Approved</span>
+                                        @else
+                                        <span class="badge bg-danger">Rejected</span>
+                                        @endif
                                 </tr>
                                 @endforeach
 
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>

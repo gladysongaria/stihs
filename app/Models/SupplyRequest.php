@@ -11,11 +11,13 @@ class SupplyRequest extends Model
 
     protected $fillable = [
         'user_id',
-        'pending_request_id',
+        'item_name',
+        'item_specification',
+        'quantity',
+        'purpose',
         'status',
-        'remarks',
         'reason',
-        'date',
+        'date_approved',
     ];
 
     public function user()
@@ -23,9 +25,5 @@ class SupplyRequest extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function pendingRequest()
-    {
-        return $this->belongsTo(PendingRequest::class);
-    }
 }
 

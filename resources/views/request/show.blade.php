@@ -100,7 +100,7 @@
 
     @if (auth()->user()->usertype == 'Property Custodian')
     {{-- Create Modal --}}
-    <div class="modal fade" id="requestShow{{$user->id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+    <div class="modal fade" id="requestShow{{$user->id}}" data-bs-keyboard="false"
         tabindex="-1" role="dialog" aria-labelledby="createUserLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -142,26 +142,6 @@
                             </thead>
                         </table>
                     </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        onclick="submitRequest('pending', {{$request->id}})">Pending</button>
-                    <button type="button" class="btn btn-sm btn-danger waves-light" data-bs-toggle="modal"
-                        data-bs-target="#accept{{ $request->id }}">Accept</button>
-                    <button type="button" class="btn btn-danger" onclick="showDeclineReason()">Decline</button>
-                </div>
-
-                <div class="hidden modal-body" id="acceptDateSection">
-                    <label>Date Accepted: <input type="date" id="acceptDate" class="form-control"></label>
-                    <button type="button" class="btn btn-primary"
-                        onclick="submitRequest('accept', {{$request->id}})">Submit</button>
-                </div>
-                <div class="hidden modal-body" id="declineReasonSection">
-                    <label>Reason for Decline:</label>
-                    <textarea id="declineReason" class="form-control"></textarea>
-                    <button type="button" class="btn btn-primary"
-                        onclick="submitRequest('decline', {{$request->id}})">Submit</button>
                 </div>
                 @endforeach
             </div>
@@ -219,61 +199,6 @@
     </div>
     @endif
 
-    <script>
-        function showAcceptDate() {
-            document.getElementById('acceptDateSection').classList.remove('hidden');
-            document.getElementById('declineReasonSection').classList.add('hidden');
-        }
-
-        function showDeclineReason() {
-            document.getElementById('declineReasonSection').classList.remove('hidden');
-            document.getElementById('acceptDateSection').classList.add('hidden');
-        }
-
-        function submitRequest(action, requestId) {
-            var acceptDate = document.getElementById('acceptDate') ? document.getElementById('acceptDate').value : '';
-            var declineReason = document.getElementById('declineReason') ? document.getElementById('declineReason').value : '';
-
-            if (action === 'accept' && !acceptDate) {
-                alert('Please select a date for acceptance.');
-                return;
-            }
-
-            if (action === 'decline' && !declineReason) {
-                alert('Please provide a reason for decline.');
-                return;
-            }
-
-            var data = {
-                action: action,
-                requestId: requestId,
-                acceptDate: acceptDate,
-                declineReason: declineReason,
-                _token: '{{ csrf_token() }}' // CSRF token for security
-            };
-
-            fetch('/update-supply-request', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Request has been ' + (action === 'accept' ? 'accepted' : action === 'decline' ? 'declined' : 'marked as pending'));
-                    location.reload();
-                } else {
-                    alert('An error occurred while updating the request status.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating the request status.');
-            });
-        }
-    </script>
 </body>
 
 </html>

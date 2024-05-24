@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('supply_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('pending_request_id')->constrained('pending_requests')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('status');
-            $table->string('remarks')->nullable();
+            $table->string('item_name');
+            $table->string('item_specification');
+            $table->integer('quantity');
+            $table->string('purpose');
+            $table->string('status')->default('Pending');
             $table->string('reason')->nullable();
-            $table->string('date')->nullable();
+            $table->timestamp('date_approved')->nullable();
 
             $table->timestamps();
         });

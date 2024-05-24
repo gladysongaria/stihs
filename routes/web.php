@@ -7,6 +7,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\ProfileController;
@@ -24,9 +25,9 @@ Route::view('/', 'welcome');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('admin.index');
-    })->name('dashboard');
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard');
+    });
 
     Route::controller(AdminController::class)->group(function () {
         Route::get('/admin/logout', 'destroy')->name('admin.logout');
@@ -48,7 +49,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('item', ItemController::class);
         Route::put('/endorse/{id}/item', 'endorse')->name('item.endorse');
         Route::post('/get-teachers-in-charge/item', 'getTeachersInCharge')->name('item.getTeachersInCharge');
-
     });
 
     //ItemInstanceController
@@ -114,6 +114,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
      Route::controller(RequestController::class)->prefix('request')->group(function () {
         Route::resource('request', RequestController::class);
         Route::get('/approved', 'approved')->name('approved.index');
+        Route::put('/decline/{id}', 'decline')->name('request.decline');
     });
 
     //ScanController
